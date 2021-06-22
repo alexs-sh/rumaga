@@ -27,7 +27,7 @@ where
     }
 
     pub async fn write(&mut self, text: &str) {
-        let _ = self.io.send(format!("{}\r", text).as_str()).await;
+        self.io.send(format!("{}\r", text).as_str()).await.unwrap();
     }
 
     pub async fn read(&mut self) -> String {
@@ -35,6 +35,7 @@ where
             if let Ok(data) = result {
                 return data;
             }
+            panic!("IO error");
         }
         "".to_owned()
     }
