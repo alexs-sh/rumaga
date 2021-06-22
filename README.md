@@ -1,3 +1,5 @@
+![badge](https://github.com/alexs-sh/rumaga/actions/workflows/build.yml/badge.svg)
+
 # About
 A simple math game in Rust and Tokio. It supports interactive and network modes. It's just for fun and testing Tokio/Async.
 
