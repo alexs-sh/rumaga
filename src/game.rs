@@ -66,13 +66,13 @@ impl Game {
                     false
                 };
 
-                if !is_correct {
-                    io.raw_write(
-                        format!("Incorrect. The valid answer is {}", exercise.answer).as_str(),
-                    )
-                    .await;
-                }
+                let report = if is_correct {
+                    "Correct".to_owned()
+                } else {
+                    format!("Incorrect. The valid answer is {}", exercise.answer)
+                };
 
+                io.raw_write(report.as_str()).await;
                 statistic.add(is_correct);
             }
 
