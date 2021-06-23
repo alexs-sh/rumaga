@@ -57,7 +57,7 @@ impl Game {
             statistic.start();
 
             for (idx, exercise) in Generator::new(settings).into_iter().take(times).enumerate() {
-                let request = format!("{}) {}", idx + 1, exercise.text.as_str());
+                let request = format!("{}/{}) {}", idx + 1, times, exercise.text.as_str());
                 let response = io.ask(request.as_str()).await;
 
                 let is_correct = if let Ok(num) = response.parse::<i64>() {
@@ -67,9 +67,9 @@ impl Game {
                 };
 
                 let report = if is_correct {
-                    "Correct".to_owned()
+                    "Yes".to_owned()
                 } else {
-                    format!("Incorrect. The valid answer is {}", exercise.answer)
+                    format!("No. The valid answer is {}", exercise.answer)
                 };
 
                 io.raw_write(report.as_str()).await;

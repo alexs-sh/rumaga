@@ -37,9 +37,9 @@ impl Generator {
     }
 
     pub fn make_excercise(&self) -> Exercise {
-        let limit = self.get_limit();
-        let x = rand::thread_rng().gen_range(0..limit as i64);
-        let y = rand::thread_rng().gen_range(0..limit as i64);
+        let (min, max) = self.get_limit();
+        let x = rand::thread_rng().gen_range(min..max as i64);
+        let y = rand::thread_rng().gen_range(min..max as i64);
 
         let (answer, text) = match self.settings.mode {
             Mode::SumOfTwo => (x + y, format!("{} + {} = ?", x, y)),
@@ -59,27 +59,27 @@ impl Generator {
         Exercise { text, answer }
     }
 
-    fn get_limit(&self) -> i64 {
+    fn get_limit(&self) -> (i64, i64) {
         match (self.settings.mode, self.settings.level) {
-            (Mode::SumOfTwo, Level::Easy) => 10,
-            (Mode::SumOfTwo, Level::Normal) => 100,
-            (Mode::SumOfTwo, Level::Hard) => 1000,
+            (Mode::SumOfTwo, Level::Easy) => (0, 10),
+            (Mode::SumOfTwo, Level::Normal) => (10, 100),
+            (Mode::SumOfTwo, Level::Hard) => (100, 1000),
 
-            (Mode::SubOfTwo, Level::Easy) => 10,
-            (Mode::SubOfTwo, Level::Normal) => 100,
-            (Mode::SubOfTwo, Level::Hard) => 1000,
+            (Mode::SubOfTwo, Level::Easy) => (0, 10),
+            (Mode::SubOfTwo, Level::Normal) => (10, 100),
+            (Mode::SubOfTwo, Level::Hard) => (100, 1000),
 
-            (Mode::MulOfTwo, Level::Easy) => 10,
-            (Mode::MulOfTwo, Level::Normal) => 20,
-            (Mode::MulOfTwo, Level::Hard) => 100,
+            (Mode::MulOfTwo, Level::Easy) => (0, 10),
+            (Mode::MulOfTwo, Level::Normal) => (10, 20),
+            (Mode::MulOfTwo, Level::Hard) => (20, 100),
 
-            (Mode::DivOfTwo, Level::Easy) => 10,
-            (Mode::DivOfTwo, Level::Normal) => 20,
-            (Mode::DivOfTwo, Level::Hard) => 100,
+            (Mode::DivOfTwo, Level::Easy) => (0, 10),
+            (Mode::DivOfTwo, Level::Normal) => (10, 20),
+            (Mode::DivOfTwo, Level::Hard) => (20, 100),
 
-            (Mode::Square, Level::Easy) => 10,
-            (Mode::Square, Level::Normal) => 20,
-            (Mode::Square, Level::Hard) => 100,
+            (Mode::Square, Level::Easy) => (0, 10),
+            (Mode::Square, Level::Normal) => (10, 20),
+            (Mode::Square, Level::Hard) => (20, 100),
         }
     }
 }
